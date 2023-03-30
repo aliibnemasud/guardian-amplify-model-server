@@ -8,3 +8,7 @@ It is a server working for loading tensorflow js model from local server. It is 
 # Dependency
 * Express
 * Cors
+
+# For running 
+* `npm i`
+* `npm run dev` or `node index.js` or `npm start`
