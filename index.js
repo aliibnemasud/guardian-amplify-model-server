@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
+const multer = require('multer');
+const uploader = require('./middleware/uploder');
 const port = process.env.PORT || 4000;
-
-const fs = require('fs');
 
 app.use(cors())
 
@@ -18,19 +18,13 @@ app.use('/server', express.static(path.join(__dirname, 'model')))
 // pointed the kml folder
 app.use('/kml', express.static(path.join(__dirname, 'kml')))
 
-
-
-/* app.get('/kml', (req, res) => {
-  const kmlPath = path.join(__dirname, 'kml', 'cta.kml');
-  const kmlFileContent = fs.readFileSync(kmlPath, 'utf8');
-  console.log(kmlFileContent)
-  // res.setHeader('Content-Type', 'application/vnd.google-earth.kml+xml');
-  res.sendFile(kmlFileContent);
-
-}); */
-
-
-
+app.post('/uploadkml', uploader.single('kmlfiles'), async (req, res)=> {
+    try {
+      res.status(200).send(req.file)
+    } catch (error) {
+      
+    }
+})
 
 
 app.get('*', async (req, res) => { 
